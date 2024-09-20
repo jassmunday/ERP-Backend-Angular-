@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors';
+import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser';
 import studentRoutes from './routes/student.routes.js';
 import userRoutes from './routes/user.routes.js'
@@ -17,13 +18,15 @@ import uomRoutes from './routes/uom.routes.js';
 import orderRoutes from './routes/orders.routes.js';
 import authRoutes from './routes/auth.routes.js';
 
+dotenv.config();
 const app = express();
 
 //middlewares
 app.use(cors({
-    origin: 'http://localhost:4200', // Frontend URL
-    credentials: true // Allow cookies and other credentials
-  }));
+  origin: process.env.FRONTEND_URL, // Use FRONTEND_URL from .env
+  credentials: true // Allow cookies and other credentials
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"))
